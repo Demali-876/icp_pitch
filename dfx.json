@@ -1,0 +1,29 @@
+{
+  "canisters": {
+    "icp_pitch_backend": {
+      "declarations": {
+        "node_compatibility": true
+      },
+      "main": "src/icp_pitch_backend/main.mo",
+      "type": "motoko"
+    },
+    "icp_pitch_frontend": {
+      "dependencies": [
+        "icp_pitch_backend"
+      ],
+      "source": [
+        "src/icp_pitch_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "icp_pitch_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
