@@ -129,7 +129,7 @@ i    }
     }
   
     clearCanvas() {
-      ctx.fillStyle = "rgba(255, 255, 220, 0.1)";
+      ctx.fillStyle = "rgba(55, 22, 66, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
   
@@ -169,13 +169,17 @@ i    }
       scene = new Scene();
       scene.run();
       resize();
-  
+      resetTimer();
       window.addEventListener('resize', resize);
+      window.addEventListener('mousemove', resetTimer);
+      window.addEventListener('keydown', resetTimer);
       return () => {
         scene.destroy?.();
         window.removeEventListener('resize', resize);
+        window.removeEventListener('mousemove', resetTimer);
+            window.removeEventListener('keydown', resetTimer);
+            clearTimeout(timeoutId);
       };
-      
     });
   
     function resize() {
@@ -190,24 +194,35 @@ i    }
     function reset() {
       scene.reset();
     }
+    let timeoutId;
+    let isVisible = true;
+
+    function resetTimer() {
+        isVisible = true;
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            isVisible = false;
+        }, 3000); 
+    }
   </script>
-  <canvas bind:this={canvas} width="800" height="500"></canvas>
-  <div class="metadata">
-    <p>10 Reasons the Internet Computer Protocol will win</p>
-    <p>
-    Made by <a href="https://oajhk-xaaaa-aaaap-qca7a-cai.icp0.io/" target="_blank">Demali.icp</a>
-    </p>
-    <button class="opacity-0 bg-black/50 text-white hover:bg-white hover:text-black transition-colors text-6xl w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-lg md:rounded-2xl absolute left-4 md:left-8 top-1/2 -translate-y-1/2" id="previousButton" style="opacity: 1; pointer-events: auto;">
+  <div class="landing-page">
+    <canvas bind:this={canvas} width="900px" height="1440px"></canvas>
+    <div class="metadata">
+      <button class="button previousButton" id="previousButton"  style="opacity: {isVisible ? '1' : '0'}; transition: opacity 0.5s;">
         <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 8V24L8 16L20 8Z" fill="currentColor"></path>
+            <path d="M20 8V24L8 16L20 8Z" fill="currentColor"></path>
         </svg>
-      </button>
-    <button class="pointer-events-auto bg-black/50 text-white hover:bg-white hover:text-black transition-colors text-6xl w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-lg md:rounded-2xl absolute right-4 md:right-8 top-1/2 -translate-y-1/2" id="nextButton" style="opacity: 1; pointer-events: auto;">
+    </button>
+    <button class="button nextButton" id="nextButton" style="opacity: {isVisible ? '1' : '0'}; transition: opacity 0.5s;">
         <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 8L8 24L20 16L8 8Z" fill="currentColor"></path>
+            <path d="M8 8L8 24L20 16L8 8Z" fill="currentColor"></path>
         </svg>
-      </button>
-  </div>
-  <div class="title">Dfinity</div>
+    </button>
+    <div class="text text_center">
+      <h4 class="title">10 reasons why ICP will win | Developer Edition</h4>
+    </div>  
+      <p>Made by <a href="https://oajhk-xaaaa-aaaap-qca7a-cai.icp0.io/" target="_blank">Demali.icp</a></p>
+    </div>
+</div>
   
 

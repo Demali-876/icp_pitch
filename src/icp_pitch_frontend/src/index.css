@@ -1,11 +1,12 @@
 body{
-  background:#efefee; margin:0;
+  background:#140818; 
+  margin:0;
   padding: 0;
   overflow: hidden;
 }
 
 canvas {
-  background:#e0e0ee;
+  background:#140818;
   position: absolute;
 }
 
@@ -46,4 +47,50 @@ div.title {
   font-size: 70px;
   padding-top:40px;
   color: rgba(254,121,68,1);
+}
+.button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-850%);
+  width: 48px;  
+  height: 48px;  
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;  
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button:hover {
+  background-color: white;
+  color: black;
+}
+
+.previousButton {
+  left: 4px;  
+}
+
+.nextButton {
+  right: 4px;  
+}
+.title {
+  color: hsl(231, 76%, 90%); 
+  font-size: 1.25rem; 
+  font-family: "Bellefair", serif; 
+  font-weight: 100;
+  margin-bottom: 2rem; 
+  text-transform: uppercase; 
+}
+
+.text {
+  margin: -0.5rem 0 -0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+}
+.text_center {
+  text-align: center;
 }
