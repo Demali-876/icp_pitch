@@ -37,17 +37,6 @@ a:hover {
   border-bottom: 4px solid rgba(254,121,68,0.4);
 }
 
-div.title {
-  position: absolute;
-  top:0;
-  width: 100%; 
-  text-align:center;
-  font-style: normal;
-  font-weight: 100;
-  font-size: 70px;
-  padding-top:40px;
-  color: rgba(254,121,68,1);
-}
 .button {
   position: absolute;
   top: 50%;
@@ -93,4 +82,18 @@ div.title {
 }
 .text_center {
   text-align: center;
+}
+.slide-container {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  transform: translateX(calc(-100% * var(--current-slide)));
+  transition: transform 0.5s ease;
+}
+
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  transition: transform 0.5s ease;
 }

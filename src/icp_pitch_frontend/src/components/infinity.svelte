@@ -3,7 +3,7 @@
   
     let canvas;
     let ctx;
-    let center = [400, 250]; // Ensure this is used or adjusted appropriately
+    let center = [400, 250]; 
     let scene;
   
   
@@ -87,7 +87,7 @@
         lastPoint = newPoint;
       }
       return extruded_left_points.concat(extruded_right_points.reverse());
-i    }
+    }
   
     drawPath() {
       let leafPath = this.computePath(this.position, this.length, this.a);
@@ -196,7 +196,23 @@ i    }
     }
     let timeoutId;
     let isVisible = true;
+    let currentSlide = -1; 
+    const totalSlides = 10; 
+    const slides = Array.from({ length: totalSlides }, (_, i) => `/slide${i + 1}.png`);
 
+    function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+            currentSlide++;
+        }
+        resetTimer();
+    }
+
+    function prevSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+        }
+        resetTimer();
+    }
     function resetTimer() {
         isVisible = true;
         clearTimeout(timeoutId);
@@ -205,23 +221,32 @@ i    }
         }, 3000); 
     }
   </script>
-  <div class="landing-page">
+<div class="landing-page">
     <canvas bind:this={canvas} width="900px" height="1440px"></canvas>
     <div class="metadata">
-      <button class="button previousButton" id="previousButton"  style="opacity: {isVisible ? '1' : '0'}; transition: opacity 0.5s;">
+      <div class="overflow-x-hidden">
+        <div class="slide-container" style="--current-slide: {currentSlide}">
+            {#each slides as slide, index (slide)}
+                <div class="slide">
+                    <img class="w-full h-full object-contain aspect-[1920/1080]" src={slide} alt={`Slide ${index + 1}`} loading="lazy">
+                </div>
+            {/each}
+        </div>
+    </div>
+      <button class="button previousButton" id="previousButton" on:click={prevSlide} style="opacity: {currentSlide > 0 && isVisible ? '1' : '0'}; transition: opacity 0.5s;">
         <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M20 8V24L8 16L20 8Z" fill="currentColor"></path>
         </svg>
-    </button>
-    <button class="button nextButton" id="nextButton" style="opacity: {isVisible ? '1' : '0'}; transition: opacity 0.5s;">
+      </button>
+      <button class="button nextButton" id="nextButton" on:click={nextSlide} style="opacity: {currentSlide < totalSlides - 1 && isVisible ? '1' : '0'}; transition: opacity 0.5s;">
         <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 8L8 24L20 16L8 8Z" fill="currentColor"></path>
         </svg>
-    </button>
-    <div class="text text_center">
-      <h4 class="title">10 reasons why ICP will win | Developer Edition</h4>
-    </div>  
-      <p>Made by <a href="https://oajhk-xaaaa-aaaap-qca7a-cai.icp0.io/" target="_blank">Demali.icp</a></p>
+      </button>
+      <div class="text text_center">
+        <h4 class="title">10 reasons why ICP will win | Developer Edition</h4>
+      </div>  
+        <p>Made by <a href="https://oajhk-xaaaa-aaaap-qca7a-cai.icp0.io/" target="_blank">Demali.icp</a></p>
     </div>
 </div>
   
