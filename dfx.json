@@ -8,9 +8,6 @@
       "type": "motoko"
     },
     "icp_pitch_frontend": {
-      "dependencies": [
-        "icp_pitch_backend"
-      ],
       "source": [
         "src/icp_pitch_frontend/dist"
       ],

@@ -1,5 +1,5 @@
 body {
-  background: #140818;
+  background: #000000;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -21,9 +21,9 @@ body {
   scroll-snap-align: center;
   flex: 1 1 0%;
   overflow: hidden;
-  width: 100vw; /*width: calc(100% - 32px);*/
+  width: 100vw;
   height: 100vh;
-  position: fixed;/*position: relative; for mobile*/
+  position: fixed;
   top: 0;
   left: 0;
   transition: transform 0.5s ease;
@@ -42,7 +42,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  aspect-ratio: 1920 / 1080;
+  aspect-ratio: 1440 / 810;
 }
 
 img {
@@ -83,11 +83,10 @@ img {
 }
 
 .title {
-  color: hsl(231, 76%, 90%);
-  font-size: 1.25rem;
+  color: hsl(0, 0%, 100%);
+  font-size: 2.25rem;
   font-family: 'Red Hat Display';
-  font-size: 22px;
-  font-weight: 100;
+  font-weight: 400;
   margin-bottom: 2rem;
   text-transform: uppercase;
 }

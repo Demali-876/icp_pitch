@@ -129,7 +129,7 @@
     }
   
     clearCanvas() {
-      ctx.fillStyle = "rgba(55, 22, 66, 0.1)";
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
   
@@ -185,7 +185,16 @@
     resetTimer();
   }
 
-
+  function handleKeydown(event) {
+      switch (event.keyCode) {
+          case 39: // Right arrow
+              nextSlide();
+              break;
+          case 37: // Left arrow
+              prevSlide();
+              break;
+      }
+    }
   function resetTimer() {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
@@ -204,12 +213,14 @@
     function reset() {
       scene.reset();
     }
+
   onMount(() => {
       ctx = canvas.getContext('2d');
       scene = new Scene();
       scene.run();
       resetTimer();
       resize();
+      window.addEventListener('keydown', handleKeydown);
       window.addEventListener('resize', resize);
       window.addEventListener('mousemove', () => {
           isVisible = true; 
@@ -223,11 +234,12 @@
           window.removeEventListener('resize', resize);
           window.removeEventListener('mousemove', resetTimer);
           window.removeEventListener('keydown', resetTimer);
+          window.removeEventListener('keydown', handleKeydown);
           clearTimeout(timeoutId);
       };
   });
 </script>
-
+<link href='https://fonts.googleapis.com/css?family=Red Hat Display' rel='stylesheet'>
 
 <div class="landing-page">
   <canvas bind:this={canvas} width="900px" height="1440px"></canvas>
@@ -235,12 +247,12 @@
     <div class="slide-container" style="--current-slide: {currentSlide}">
       {#each slides as slide, index}
       {#if index === currentSlide}
-      <div class="slide" in:fly={{ x: 200, duration: 500, delay: 0 }} out:fly={{ x: -400, duration: 500 }}>
+      <div class="slide" in:fly={{ x: 200, duration: 200, delay: 0 }} out:fly={{ x: -200, duration: 200 }}>
           <img src={slide} alt={`Slide ${index + 1}`}>
         </div>
       {/if}
     {/each}    
-      </div>
+    </div>
       <button class="button previousButton" on:click={prevSlide} style="opacity: {currentSlide > -1 && isVisible ? '1' : '0'};">
         <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M20 8V24L8 16L20 8Z" fill="currentColor"></path>
@@ -251,14 +263,15 @@
           <path d="M8 8L8 24L20 16L8 8Z" fill="currentColor"></path>
       </svg>
       </button>
-      <div class="text-white font-semibold text-sm md:text-xl bg-black/50 px-4 py-2 rounded-md" id="slideNumber">Slide 1/10</div>
       <div class="text text_center">
-          <h4 class="title">10 reasons why ICP will win | Developer Edition</h4>
+          <h4 class="title" style="opacity: {currentSlide === -1 ? '1' : '0'};">10 reasons why ICP will win | Developer Edition</h4>
       </div>
+      <div class="text text_center">
+      <div class="text-white font-semibold text-sm md:text-xl bg-black/50 px-4 py-2 rounded-md" id="slideNumber" style="opacity: {currentSlide > -1 && isVisible ? '1' : '0'};">Slide {currentSlide+1}/10</div>
       <div class="text-white/60 italic px-4 py-3 hover:text-black hover:bg-white hover:shadow-lg landscape:hidden text-center">
         Rotate your device for better experience
       </div>
-      <p>Made by <a href="https://oajhk-xaaaa-aaaap-qca7a-cai.icp0.io/" target="_blank">Demali.icp</a></p>
+    </div>
   </div>
 </div>
 
