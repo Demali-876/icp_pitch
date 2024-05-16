@@ -168,6 +168,12 @@
   let currentSlide = -1;
   const totalSlides = 10;
   const slides = Array.from({ length: totalSlides }, (_, i) => `/slide${i + 1}.png`);
+  function preloadSlides() {
+    slides.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  }
   
   function nextSlide() {
       if (currentSlide < totalSlides - 1) {
@@ -220,6 +226,7 @@
       scene.run();
       resetTimer();
       resize();
+      preloadSlides();
       window.addEventListener('keydown', handleKeydown);
       window.addEventListener('resize', resize);
       window.addEventListener('mousemove', () => {
@@ -242,36 +249,35 @@
 <link href='https://fonts.googleapis.com/css?family=Red Hat Display' rel='stylesheet'>
 
 <div class="landing-page">
-  <canvas bind:this={canvas} width="900px" height="1440px"></canvas>
+  <canvas bind:this={canvas}></canvas>
   <div class="metadata">
     <div class="slide-container" style="--current-slide: {currentSlide}">
       {#each slides as slide, index}
-      {#if index === currentSlide}
-      <div class="slide" in:fly={{ x: 200, duration: 200, delay: 0 }} out:fly={{ x: -200, duration: 200 }}>
-          <img src={slide} alt={`Slide ${index + 1}`}>
-        </div>
-      {/if}
-    {/each}    
+        {#if index === currentSlide}
+          <div class="slide" in:fly={{ x: 200, duration: 200, delay: 0 }} out:fly={{ x: -200, duration: 200 }}>
+            <img src={slide} alt={`Slide ${index + 1}`}>
+          </div>
+        {/if}
+      {/each}
     </div>
-      <button class="button previousButton" on:click={prevSlide} style="opacity: {currentSlide > -1 && isVisible ? '1' : '0'};">
-        <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 8V24L8 16L20 8Z" fill="currentColor"></path>
+    <button class="button previousButton" on:click={prevSlide} style="opacity: {currentSlide > -1 && isVisible ? '1' : '0'};">
+      <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 8V24L8 16L20 8Z" fill="currentColor"></path>
       </svg>
-      </button>
-      <button class="button nextButton" on:click={nextSlide} style="opacity: {currentSlide < totalSlides - 1 && isVisible ? '1' : '0'};">
-        <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 8L8 24L20 16L8 8Z" fill="currentColor"></path>
+    </button>
+    <button class="button nextButton" on:click={nextSlide} style="opacity: {currentSlide < totalSlides - 1 && isVisible ? '1' : '0'};">
+      <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 8L8 24L20 16L8 8Z" fill="currentColor"></path>
       </svg>
-      </button>
-      <div class="text text_center">
-          <h4 class="title" style="opacity: {currentSlide === -1 ? '1' : '0'};">10 reasons why ICP will win | Developer Edition</h4>
-      </div>
-      <div class="text text_center">
-      <div class="text-white font-semibold text-sm md:text-xl bg-black/50 px-4 py-2 rounded-md" id="slideNumber" style="opacity: {currentSlide > -1 && isVisible ? '1' : '0'};">Slide {currentSlide+1}/10</div>
+    </button>
+    <div class="text text_center">
+      <h4 class="title" style="opacity: {currentSlide === -1 ? '1' : '0'};">10 reasons why ICP will win | Developer Edition</h4>
+    </div>
+    <div class="text text_center">
+      <div class="slide-counter" style="opacity: {currentSlide > -1 && isVisible ? '1' : '0'};">Slide {currentSlide + 1}/10</div>
       <div class="text-white/60 italic px-4 py-3 hover:text-black hover:bg-white hover:shadow-lg landscape:hidden text-center">
         Rotate your device for better experience
       </div>
     </div>
   </div>
 </div>
-

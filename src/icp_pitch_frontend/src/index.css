@@ -7,10 +7,10 @@ body {
 
 .metadata {
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
   width: 100%;
   text-align: center;
-  color: rgba(151, 26, 22, 1);
+  color: white;
   font-family: 'Red Hat Display';
   font-size: 22px;
   font-weight: bold;
@@ -28,15 +28,17 @@ body {
   left: 0;
   transition: transform 0.5s ease;
 }
+
 @media (orientation: landscape) {
   .landscape\:hidden {
-      display:none
+      display: none;
   }
 
   .landscape\:h-\[100dvh\] {
-      height: 100dvh
+      height: 100dvh;
   }
 }
+
 .slide {
   flex: 0 0 100%;
   width: 100%;
@@ -96,11 +98,34 @@ img {
   width: 100%;
   padding: 0.5rem;
 }
-img,svg,video,canvas,audio,iframe,embed,object {
+
+img, svg, video, canvas, audio, iframe, embed, object {
   display: block;
 }
 
-img,video {
+img, video {
   max-width: 100%;
-  height: auto
+  height: auto;
+}
+
+.slide-counter {
+  position: absolute;
+  top: 0;
+  margin-top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  z-index: 1000;
+}
+
+@media (orientation: portrait) {
+  .slide-container {
+    height: 60vh;
+    top: 37vh;
+  }
 }
